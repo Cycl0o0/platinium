@@ -12,6 +12,15 @@
   </outputs>
   <release seq="1">
     <includes>
+      <!-- Platinium: bundled OpenDeezer player (auto-loaded component extension). -->
+      <include name="IDR_PLATINIUM_OPENDEEZER_MANIFEST" file="platinium/opendeezer/manifest.json" type="BINDATA" />
+      <include name="IDR_PLATINIUM_OPENDEEZER_BACKGROUND_JS" file="platinium/opendeezer/background.js" type="BINDATA" />
+      <include name="IDR_PLATINIUM_OPENDEEZER_PANEL_HTML" file="platinium/opendeezer/panel.html" type="BINDATA" />
+      <include name="IDR_PLATINIUM_OPENDEEZER_PANEL_JS" file="platinium/opendeezer/panel.js" type="BINDATA" />
+      <include name="IDR_PLATINIUM_OPENDEEZER_PANEL_CSS" file="platinium/opendeezer/panel.css" type="BINDATA" />
+      <include name="IDR_PLATINIUM_OPENDEEZER_OPTIONS_HTML" file="platinium/opendeezer/options.html" type="BINDATA" />
+      <include name="IDR_PLATINIUM_OPENDEEZER_OPTIONS_JS" file="platinium/opendeezer/options.js" type="BINDATA" />
+
       <include name="IDR_NETWORK_SPEECH_SYNTHESIS_JS" file="network_speech_synthesis/tts_extension.js" type="BINDATA" />
 
       <include name="IDR_NETWORK_SPEECH_SYNTHESIS_MV3_AUDIO_HTML" file="network_speech_synthesis/mv3/audio.html" type="BINDATA" />

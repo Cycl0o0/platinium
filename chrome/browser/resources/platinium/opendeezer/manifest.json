@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Platinium \u00b7 OpenDeezer",
+  "version": "0.1.0",
+  "description": "Platinium by Cycl0o0 \u2014 OpenDeezer native player side panel. License: AGPL-3.0-or-later.",
+  "author": "Cycl0o0",
+  "permissions": [
+    "sidePanel",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:7654/*",
+    "http://localhost:7654/*"
+  ],
+  "optional_host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "panel.html"
+  },
+  "action": {
+    "default_title": "Open the OpenDeezer player panel"
+  },
+  "options_page": "options.html",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqML/UMLSSrNXX+sH7Oi6lWWhCPBEOitMcuIB686cqo7+4w2tEiOuscfnhk9YxMbu6Sy2KzmHVMmxJsTJ3P+3SmktTaeECKPDhfQNyHyMkmVbn99YZhJyBiyn7Nqaz4chmZ7Kw9am18PTK2D/YdLfrW393P/M4rvn9AhoquB4oXp7pw/T/uLyZnZLFhwXcHoR/C0YO9aSpseipLaPAnIQ6W6uMxoP+6BU3cvZkz2g9HBNApSPAJYb4c3zLVn6BImV9NMVyQJV9MCIV57J9AOJITgZzxgEJtw4aSdDCB9Ou1m/7Lo756iHFRmMLeKAQFeckD0So4uoGvGyrsjzrlsEzQIDAQAB"
+}

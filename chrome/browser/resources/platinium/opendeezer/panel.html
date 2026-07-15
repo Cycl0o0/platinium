@@ -1,0 +1,74 @@
+<!--
+  Platinium by Cycl0o0 — OpenDeezer native player (side panel UI)
+  SPDX-License-Identifier: AGPL-3.0-or-later
+
+  This file is part of the Platinium browser project.
+  Platinium is free software: you can redistribute it and/or modify it under
+  the terms of the GNU Affero General Public License as published by the
+  Free Software Foundation, either version 3 of the License, or (at your
+  option) any later version. See <https://www.gnu.org/licenses/agpl-3.0.html>.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Platinium · OpenDeezer</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand">OpenDeezer</span>
+    <span id="offline" class="offline hidden">OpenDeezer offline</span>
+  </header>
+
+  <main>
+    <section class="now-playing">
+      <div id="art" class="art" aria-hidden="true">&#9835;</div>
+      <div class="meta">
+        <div id="title" class="title">Nothing playing</div>
+        <div id="artist" class="artist">&nbsp;</div>
+        <div id="album" class="album">&nbsp;</div>
+      </div>
+    </section>
+
+    <section class="progress">
+      <span id="pos" class="time">0:00</span>
+      <input id="seek" type="range" min="0" max="0" value="0" step="1000"
+             aria-label="Seek">
+      <span id="dur" class="time">0:00</span>
+    </section>
+
+    <section class="controls">
+      <button id="shuffle" class="ctl small" title="Shuffle">&#128256;</button>
+      <button id="prev" class="ctl" title="Previous">&#9198;</button>
+      <button id="playpause" class="ctl big" title="Play / Pause">&#9654;</button>
+      <button id="next" class="ctl" title="Next">&#9197;</button>
+      <button id="repeat" class="ctl small" title="Repeat" data-mode="off">&#128257;</button>
+    </section>
+
+    <section class="volume">
+      <span class="vol-icon" aria-hidden="true">&#128264;</span>
+      <input id="volume" type="range" min="0" max="100" value="100" step="1"
+             aria-label="Volume">
+      <span class="vol-icon" aria-hidden="true">&#128266;</span>
+    </section>
+
+    <section class="search">
+      <form id="search-form" autocomplete="off">
+        <input id="search-input" type="search" placeholder="Search tracks…"
+               aria-label="Search tracks">
+        <button type="submit" class="ctl small" title="Search">&#128269;</button>
+      </form>
+      <ul id="results" class="results"></ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <a href="options.html" target="_blank">Settings</a>
+    <span class="credit">Platinium by Cycl0o0 · AGPL-3.0</span>
+  </footer>
+
+  <script src="panel.js"></script>
+</body>
+</html>

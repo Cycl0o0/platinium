@@ -614,6 +614,11 @@ void ComponentLoader::AddDefaultComponentExtensionsWithBackgroundPages(
 #endif  // BUILDFLAG(GOOGLE_CHROME_BRANDING)
 #endif  // BUILDFLAG(IS_CHROMEOS)
 
+    // Platinium: bundled OpenDeezer player, auto-loaded as a component
+    // extension on every platform.
+    Add(IDR_PLATINIUM_OPENDEEZER_MANIFEST,
+        base::FilePath(FILE_PATH_LITERAL("platinium/opendeezer")));
+
 #if BUILDFLAG(IS_CHROMEOS)
     if (command_line->HasSwitch(switches::kLoadGuestModeTestExtension)) {
       base::FilePath path = base::FilePath(command_line->GetSwitchValueASCII(

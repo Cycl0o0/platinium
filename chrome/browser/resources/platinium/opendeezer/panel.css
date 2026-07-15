@@ -1,0 +1,166 @@
+/*
+ * Platinium by Cycl0o0 — OpenDeezer native player (side panel styles)
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ *
+ * This file is part of the Platinium browser project.
+ * Platinium is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version. See <https://www.gnu.org/licenses/agpl-3.0.html>.
+ */
+
+:root {
+  color-scheme: light dark;
+  --bg: #12131a;
+  --panel: #1c1e28;
+  --text: #eceef5;
+  --muted: #9aa0b4;
+  --accent: #a238ff;
+  --accent-2: #6c8cff;
+  --danger: #ff5470;
+  --radius: 10px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f4f5fa;
+    --panel: #ffffff;
+    --text: #1b1d27;
+    --muted: #5d6377;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font: 14px/1.45 -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(128, 128, 160, 0.2);
+}
+
+.brand { font-weight: 700; letter-spacing: 0.04em; }
+
+.offline {
+  font-size: 12px;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+
+.hidden { display: none; }
+
+main { flex: 1; padding: 14px; display: flex; flex-direction: column; gap: 14px; }
+
+.now-playing { display: flex; gap: 12px; align-items: center; }
+
+.art {
+  width: 72px;
+  height: 72px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  color: #fff;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+.meta { min-width: 0; }
+.title { font-weight: 700; font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.artist { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.album { color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.progress { display: flex; align-items: center; gap: 8px; }
+.time { font-variant-numeric: tabular-nums; font-size: 12px; color: var(--muted); min-width: 36px; text-align: center; }
+
+input[type="range"] { flex: 1; accent-color: var(--accent); cursor: pointer; }
+
+.controls { display: flex; align-items: center; justify-content: center; gap: 10px; }
+
+.ctl {
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 17px;
+  cursor: pointer;
+  background: var(--panel);
+  color: var(--text);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+.ctl:hover { transform: scale(1.07); }
+.ctl:active { transform: scale(0.95); }
+.ctl.big { width: 54px; height: 54px; font-size: 22px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; }
+.ctl.small { width: 34px; height: 34px; font-size: 13px; }
+.ctl.on { outline: 2px solid var(--accent); color: var(--accent); }
+.ctl[disabled] { opacity: 0.4; cursor: default; transform: none; }
+
+.badge {
+  position: absolute;
+  margin-top: -10px;
+  margin-left: 22px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.volume { display: flex; align-items: center; gap: 8px; }
+.vol-icon { font-size: 13px; color: var(--muted); }
+
+.search form { display: flex; gap: 8px; }
+
+#search-input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(128, 128, 160, 0.3);
+  background: var(--panel);
+  color: var(--text);
+}
+
+#search-input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+
+.results { list-style: none; margin-top: 10px; max-height: 40vh; overflow-y: auto; }
+
+.results li {
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.results li:hover { background: var(--panel); }
+.results .r-title { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.results .r-sub { color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.results .r-empty { color: var(--muted); cursor: default; }
+.results .r-empty:hover { background: none; }
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  border-top: 1px solid rgba(128, 128, 160, 0.2);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.foot a { color: var(--accent-2); text-decoration: none; }
+.foot a:hover { text-decoration: underline; }
