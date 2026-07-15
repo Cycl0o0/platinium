@@ -99,6 +99,8 @@ bool IsComponentExtensionAllowlisted(int manifest_resource_id) {
     case IDR_GLIC_EXTENSION_MANIFEST:
     case IDR_NETWORK_SPEECH_SYNTHESIS_MANIFEST:
     case IDR_NETWORK_SPEECH_SYNTHESIS_MANIFEST_MV3:
+    // Platinium: bundled OpenDeezer player.
+    case IDR_PLATINIUM_OPENDEEZER_MANIFEST:
     case IDR_READING_MODE_GDOCS_HELPER_MANIFEST:
     case IDR_WEBSTORE_MANIFEST:
 
