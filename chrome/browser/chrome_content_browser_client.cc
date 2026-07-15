@@ -5199,8 +5199,41 @@ bool ChromeContentBrowserClient::
              prefs.root_scrollbar_theme_color;
 }
 
+namespace {
+// Platinium: plat:// is an alias for chrome://. The forward handler rewrites
+// plat:// -> chrome:// so the same WebUI loads; the reverse handler rewrites
+// chrome:// -> plat:// so the omnibox displays the Platinium scheme.
+bool HandlePlatiniumSchemeRewrite(GURL* url,
+                                  content::BrowserContext* browser_context) {
+  if (url->SchemeIs("plat")) {
+    GURL::Replacements replacements;
+    replacements.SetSchemeStr(content::kChromeUIScheme);
+    *url = url->ReplaceComponents(replacements);
+    return true;
+  }
+  return false;
+}
+bool HandlePlatiniumSchemeReverseRewrite(
+    GURL* url,
+    content::BrowserContext* browser_context) {
+  if (url->SchemeIs(content::kChromeUIScheme)) {
+    GURL::Replacements replacements;
+    replacements.SetSchemeStr("plat");
+    *url = url->ReplaceComponents(replacements);
+    return true;
+  }
+  return false;
+}
+}  // namespace
+
 void ChromeContentBrowserClient::BrowserURLHandlerCreated(
     BrowserURLHandler* handler) {
+  // Platinium: register the plat:// <-> chrome:// alias first, so plat:// is
+  // normalized to chrome:// before any other handler runs, and (because reverse
+  // handlers run in reverse order) chrome:// is displayed last as plat://.
+  handler->AddHandlerPair(&HandlePlatiniumSchemeRewrite,
+                          &HandlePlatiniumSchemeReverseRewrite);
+
   // The group policy NTP URL handler must be registered before the other NTP
   // URL handlers below. Also register it before the "parts" handlers, so the
   // NTP policy takes precedence over extensions that override the NTP.

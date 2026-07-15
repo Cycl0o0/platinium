@@ -203,6 +203,12 @@ void ChromeContentClient::AddAdditionalSchemes(Schemes* schemes) {
   for (auto* standard_scheme : kChromeStandardURLSchemes)
     schemes->standard_schemes.push_back(standard_scheme);
 
+  // Platinium: register the plat:// alias scheme so it parses like chrome://
+  // (standard + secure). Navigations are rewritten plat:// <-> chrome:// by
+  // ChromeContentBrowserClient::BrowserURLHandlerCreated.
+  schemes->standard_schemes.push_back("plat");
+  schemes->secure_schemes.push_back("plat");
+
 #if BUILDFLAG(IS_ANDROID)
   schemes->referrer_schemes.push_back(content::kAndroidAppScheme);
   schemes->referrer_schemes.push_back(dom_distiller::kDomDistillerScheme);
