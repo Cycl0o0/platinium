@@ -64,9 +64,22 @@ std::u16string
 ChromeLocationBarModelDelegate::FormattedStringWithEquivalentMeaning(
     const GURL& url,
     const std::u16string& formatted_url) const {
-  return AutocompleteInput::FormattedStringWithEquivalentMeaning(
-      url, formatted_url, ChromeAutocompleteSchemeClassifier(GetProfile()),
-      nullptr);
+  std::u16string result =
+      AutocompleteInput::FormattedStringWithEquivalentMeaning(
+          url, formatted_url, ChromeAutocompleteSchemeClassifier(GetProfile()),
+          nullptr);
+  // Platinium: display chrome:// pages under the plat:// scheme in the omnibox.
+  // Only the pure "chrome" WebUI scheme is remapped (not chrome-extension://,
+  // chrome-untrusted://, etc.). Editing plat://... round-trips back to chrome://
+  // through the BrowserURLHandler alias.
+  if (url.SchemeIs(content::kChromeUIScheme)) {
+    constexpr std::u16string_view kChromePrefix = u"chrome://";
+    if (result.size() >= kChromePrefix.size() &&
+        result.compare(0, kChromePrefix.size(), kChromePrefix) == 0) {
+      result = u"plat://" + result.substr(kChromePrefix.size());
+    }
+  }
+  return result;
 }
 
 bool ChromeLocationBarModelDelegate::GetURL(GURL* url) const {
