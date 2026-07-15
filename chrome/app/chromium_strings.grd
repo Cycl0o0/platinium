@@ -506,10 +506,10 @@ New bookmarks can’t be saved in your account until you delete some. If you sig
         </then>
         <else>
           <message name="IDS_ABOUT_VERSION_COMPANY_NAME" desc="Company name on the about pages">
-            The Chromium Authors
+            Cycl0o0
           </message>
           <message name="IDS_ABOUT_VERSION_COPYRIGHT" desc="Copyright information on the about pages">
-            Copyright <ph name="YEAR">{0,date,y}<ex>2016</ex></ph> The Chromium Authors. All rights reserved.
+            Copyright <ph name="YEAR">{0,date,y}<ex>2016</ex></ph> Cycl0o0. Platinium is a fork of Chromium; portions Copyright The Chromium Authors.
           </message>
         </else>
       </if>
