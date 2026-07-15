@@ -59,12 +59,18 @@ function authHeaders() {
   return cfg.token ? { Authorization: "Bearer " + cfg.token } : {};
 }
 
+let lastErrorStatus = 0;
+
 async function api(path, opts = {}) {
   const res = await fetch(baseUrl() + path, {
     ...opts,
     headers: { ...(opts.headers || {}), ...authHeaders() },
   });
-  if (!res.ok) throw new Error("HTTP " + res.status);
+  if (!res.ok) {
+    lastErrorStatus = res.status;
+    throw new Error("HTTP " + res.status);
+  }
+  lastErrorStatus = 0;
   return res;
 }
 
@@ -94,8 +100,13 @@ function setOnline(ok) {
     b.disabled = !ok;
   }
   if (!ok) {
-    els.title.textContent = "OpenDeezer offline";
-    els.artist.textContent = "Check Settings / the tunnel to :7654";
+    if (lastErrorStatus === 401 || lastErrorStatus === 403) {
+      els.title.textContent = "OpenDeezer: unauthorized (" + lastErrorStatus + ")";
+      els.artist.textContent = "Set the control token in Settings";
+    } else {
+      els.title.textContent = "OpenDeezer offline";
+      els.artist.textContent = "Check Settings / the tunnel to :7654";
+    }
     els.album.textContent = " ";
   }
 }
@@ -308,13 +319,13 @@ function renderResults(tracks) {
 
 /* ------------------------------------------------------------------- init */
 
-chrome.storage.sync.get(DEFAULTS, (stored) => {
+chrome.storage.local.get(DEFAULTS, (stored) => {
   cfg = { ...DEFAULTS, ...stored };
   restartStream();
 });
 
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area !== "sync") return;
+  if (area !== "local") return;
   if (changes.baseUrl) cfg.baseUrl = changes.baseUrl.newValue || DEFAULTS.baseUrl;
   if (changes.token) cfg.token = changes.token.newValue || "";
   restartStream();

@@ -55,7 +55,7 @@ function ensureHostPermission(baseUrl) {
   });
 }
 
-chrome.storage.sync.get(DEFAULTS, (stored) => {
+chrome.storage.local.get(DEFAULTS, (stored) => {
   baseUrlEl.value = stored.baseUrl || DEFAULTS.baseUrl;
   tokenEl.value = stored.token || "";
 });
@@ -66,7 +66,7 @@ document.getElementById("save").addEventListener("click", async () => {
   if (!granted) {
     return say("Host permission denied for " + values.baseUrl + " — not saved.", false);
   }
-  chrome.storage.sync.set(values, () => say("Saved.", true));
+  chrome.storage.local.set(values, () => say("Saved.", true));
 });
 
 document.getElementById("test").addEventListener("click", async () => {
