@@ -1,0 +1,48 @@
+Platinium by Cycl0o0
+====================
+
+Platinium is a de-Googled fork of Chromium.
+Homepage: https://platinium.cyclooo.fr
+
+LICENSING
+---------
+This project is a *combined work* of two license regimes. Read this carefully,
+because you cannot place all of Platinium under a single license:
+
+1. Upstream Chromium and its third-party components remain under their
+   ORIGINAL licenses — chiefly the BSD 3-Clause License (see ./LICENSE) plus
+   the many licenses catalogued by `chrome://credits`. The BSD license
+   REQUIRES that the upstream copyright notices be retained; they have been.
+   You may not relicense that code under the AGPL.
+
+2. The Platinium-specific additions authored by Cycl0o0 are licensed under the
+   GNU Affero General Public License v3.0 (see ./LICENSE.platinium). This
+   covers, non-exhaustively:
+     - branding assets (chrome/app/theme/chromium/* replaced by Platinium art,
+       icon set, BRANDING file changes, product-name strings),
+     - the de-Google build configuration,
+     - the Platinium MCP <-> CDP bridge (~/platinium-mcp),
+     - the bundled OpenDeezer control extension,
+     - the GPTerminal interoperability configuration,
+     - any other file added or modified by Cycl0o0 and marked as such.
+
+Because the AGPL-covered layer runs as part of / alongside the browser and can
+be network-accessed (the MCP bridge), the AGPL's network-use clause (section
+13) applies to those components: if you offer Platinium's AGPL parts to users
+over a network, you must offer them the corresponding source.
+
+WHY NOT "AGPL FOR EVERYTHING"
+-----------------------------
+The user asked for "AGPL 3.0 si disponible" (if possible). It is possible for
+Cycl0o0's own code, and that is what is done here. It is NOT legally possible
+for the Chromium codebase itself, which is BSD-licensed by The Chromium
+Authors and includes GPL-incompatible and separately-licensed third-party
+code. Dual-tracking (BSD upstream + AGPL additions) is the correct and honest
+arrangement.
+
+RELATED PROJECTS (also Cycl0o0, AGPL-3.0 compatible)
+----------------------------------------------------
+  - GPTerminal   https://github.com/Cycl0o0/GPTerminal      (AGPL-3.0)
+  - OpenDeezer   https://github.com/Cycl0o0/OpenDeezer       (Go SDK)
+
+Copyright (C) 2026 Cycl0o0.

@@ -315,6 +315,7 @@ template("build_webui") {
       }
     }
   }
+  not_needed([ "is_ash_webui" ])
 
   # Determine if there is a Lit and/or Polymer dependency. This information is
   # used for determining the default template for html_to_wrapper() as well as
@@ -546,9 +547,14 @@ template("build_webui") {
     }
   }
 
-  enable_type_aware_eslint_checks =
-      !defined(invoker.enable_type_aware_eslint_checks) ||
-      invoker.enable_type_aware_eslint_checks
+  # Local patch: type-aware eslint plugin fails to compile with the synced
+  # node_modules; lint-only, safe to skip for building chrome.
+  not_needed(invoker,
+             [
+               "enable_type_aware_eslint_checks",
+               "eslint_enable_web_component_missing_deps",
+             ])
+  enable_type_aware_eslint_checks = false
 
   if (enable_type_aware_eslint_checks) {
     eslint_ts("lint_ts") {

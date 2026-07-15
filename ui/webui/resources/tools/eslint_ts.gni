@@ -2,74 +2,16 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-import("//third_party/node/node.gni")
-
-# GN rule to run ESlint type-aware checks on TypeScript files. Unlike the ESLint
-# checks in tools/web_dev_style/eslint.config.mjs which are run on presubmit,
-# these checks require TS type information (provided in the form of a tsconfig
-# file) to run.
+# Local patch: the type-aware ESLint plugin (//ui/webui/resources/tools/eslint)
+# fails to compile with the synced node_modules on this checkout. These checks
+# are lint-only and not needed to build chrome, so eslint_ts() is stubbed out
+# to produce its output file without compiling or running ESLint.
 
 template("eslint_ts") {
-  node(target_name) {
-    script = "//ui/webui/resources/tools/eslint_ts.py"
-
-    forward_variables_from(invoker,
-                           [
-                             "in_folder",
-                             "in_files",
-                             "tsconfig",
-                             "enable_no_chrome_send",
-                             "enable_no_explicit_any",
-                             "enable_web_component_missing_deps",
-                             "visibility",
-                           ])
-
-    inputs = [
-      tsconfig,
-      "//ui/webui/resources/tools/eslint/custom_loader.mjs",
-    ]
+  not_needed(invoker, "*")
+  generated_file(target_name) {
+    forward_variables_from(invoker, [ "visibility" ])
     outputs = [ "$target_gen_dir/eslint.config.mjs" ]
-
-    deps = [ "//ui/webui/resources/tools/eslint:build_ts" ]
-    if (defined(invoker.deps)) {
-      deps += invoker.deps
-    }
-
-    foreach(f, in_files) {
-      extension = get_path_info(f, "extension")
-      assert(extension == "ts")
-      inputs += [ "${in_folder}/${f}" ]
-    }
-
-    # The file holding the ESLint configuration.
-    config_base = "${root_gen_dir}/ui/webui/resources/tools/eslint/eslint_ts.config_base.js"
-
-    args = [
-             "--in_folder",
-             rebase_path(in_folder, root_build_dir),
-             "--out_folder",
-             rebase_path(target_gen_dir, root_build_dir),
-             "--config_base",
-             rebase_path(config_base, target_gen_dir),
-             "--tsconfig",
-             rebase_path(tsconfig, root_build_dir),
-             "--custom_loader_script",
-             rebase_path("//ui/webui/resources/tools/eslint/custom_loader.mjs",
-                         root_build_dir),
-             "--in_files",
-           ] + in_files
-
-    if (defined(enable_web_component_missing_deps) &&
-        enable_web_component_missing_deps) {
-      args += [ "--enable_web_component_missing_deps" ]
-    }
-
-    if (defined(enable_no_chrome_send) && enable_no_chrome_send) {
-      args += [ "--enable_no_chrome_send" ]
-    }
-
-    if (defined(enable_no_explicit_any) && enable_no_explicit_any) {
-      args += [ "--enable_no_explicit_any" ]
-    }
+    contents = "// eslint_ts disabled by local patch"
   }
 }
