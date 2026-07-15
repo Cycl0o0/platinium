@@ -39,9 +39,9 @@ bool IsExtensionAffected(int manifest_version,
     return false;
   }
 
-  // The extension is an MV2 (or lower) extension; we should warn the user
-  // about it.
-  return true;
+  // Platinium: re-enable Manifest V2. Report no extension as "affected" by the
+  // MV2 deprecation, so MV2 extensions are neither warned about nor disabled.
+  return false;
 }
 
 }  // namespace extensions::manifest_v2_util
